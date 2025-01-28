@@ -1,0 +1,81 @@
+
+## ¿Qué es esto?
+Es una clase que funciona como una "caja de herramientas" para trabajar con bases de datos SQL Server. Imagina que es como un control remoto que te permite:
+- Conectarte a la base de datos
+- Guardar información
+- Obtener información
+- Ejecutar comandos especiales
+
+## Las Partes Principales
+
+### 1. Variables Globales
+```vb
+Private command As New SqlCommand()      ' Para enviar órdenes a la base de datos
+Dim conexion As New SqlConnection()      ' El "cable" que conecta con la base de datos
+Dim da As New SqlDataAdapter()          ' Para traer datos
+Dim dt As New DataTable()               ' Para guardar datos en memoria
+```
+
+### 2. Los Métodos Más Importantes
+
+#### Conectarse (init_SQL)
+- Es como "enchufar" el programa a la base de datos
+- Lee la configuración guardada (servidor, usuario, contraseña)
+- Se asegura que la conexión sea segura
+
+#### Verificar Conexión (check_connection)
+```vb
+' Ejemplo de uso:
+If check_connection() Then
+    MessageBox.Show("¡Conectado!")
+End If
+```
+- Comprueba si podemos conectarnos
+- Es como probar si el "cable" funciona
+
+#### Guardar Datos (exec_Void)
+```vb
+' Ejemplo: Guardar un cliente nuevo
+exec_Void("INSERT INTO Clientes (Nombre) VALUES ('Juan')")
+```
+- Para guardar información nueva
+- Para actualizar datos
+- Para borrar datos
+
+#### Obtener Datos (exec_DataTable)
+```vb
+' Ejemplo: Obtener lista de clientes
+Dim tabla = exec_DataTable("SELECT * FROM Clientes")
+```
+- Para obtener información de la base de datos
+- Te devuelve los datos en forma de tabla
+
+## Configuración Necesaria
+Necesitas tener en My.Settings:
+- `data_source_bd`: El nombre del servidor
+- `initial_catalog_bd`: El nombre de la base de datos
+- `user_bd`: Usuario
+- `password_bd`: Contraseña
+
+## Ejemplo de Uso Común
+```vb
+' 1. Primero verificamos la conexión
+If check_connection() Then
+    ' 2. Guardamos un cliente nuevo
+    exec_Void("INSERT INTO Clientes (Nombre) VALUES ('María')")
+    
+    ' 3. Contamos cuántos clientes hay
+    Dim total = exec_Value("SELECT COUNT(*) FROM Clientes")
+    
+    ' 4. Obtenemos la lista de todos los clientes
+    Dim clientes = exec_DataTable("SELECT * FROM Clientes")
+End If
+```
+
+## Consejos Importantes
+1. Siempre verifica la conexión antes de usarla
+2. Maneja los errores (por si algo falla)
+3. Cierra las conexiones cuando termines
+4. Ten cuidado con las contraseñas
+
+
