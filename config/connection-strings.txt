@@ -1,0 +1,16 @@
+# Common SQL Server Connection Strings
+
+## Windows Authentication (Development)
+Server=.\SQLEXPRESS;Database=YourDatabase;Trusted_Connection=True;
+
+## Local SQL Server
+Server=localhost;Database=YourDatabase;Trusted_Connection=True;
+
+## SQL Authentication
+Server=YourServer;Database=YourDatabase;User Id=YourUsername;Password=YourPassword;
+
+## Named Instance
+Server=ComputerName\InstanceName;Database=YourDatabase;Trusted_Connection=True;
+
+## With Additional Options
+Server=.\SQLEXPRESS;Database=YourDatabase;Trusted_Connection=True;TrustServerCertificate=True;Timeout=30; 
